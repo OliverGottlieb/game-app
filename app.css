@@ -1,0 +1,431 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Dark cinematic palette */
+  --bg-dark: #0c111a;
+  --text-light: #d52525;
+  --text-muted: #cca8a8;
+  --card-bg: #bbbbbb;
+  --accent: #69c8f0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(180deg, #0c111a 0%, #1a1f2e 100%);
+  color: var(--text-light);
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(90deg, rgba(228, 42, 42, 0.564), rgba(228, 42, 42, 0.564));
+  border-bottom: 1px solid rgba(228, 42, 42, 0.564);
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: #bbbbbb;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+main {
+  width: min(1200px, 94vw);
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+/* ===== DAG 2-3: Movie Cards (basic) ===== */
+.movie-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding: 2rem 0;
+}
+
+@media (min-width: 600px) {
+  .movie-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  .movie-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1400px) {
+  .movie-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.movie-card {
+  background: linear-gradient(180deg, #434b54 0%, var(--card-bg) 100%);
+  border: 1px solid rgba(228, 42, 42, 0.564);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  border-color: var(--accent);
+}
+
+.movie-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+  transition: transform 200ms ease;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.05);
+}
+
+.movie-info {
+  padding: 1.5rem;
+}
+
+.movie-info h2 {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 600;
+  color: #bbbbbb;
+  margin: 0 0 0.5rem 0;
+}
+
+.genre {
+  font-size: 0.8rem;
+  color: #d5e5f1;
+  margin-top: 0.3rem;
+}
+
+/* ===== DAG 3-4: Filters & Controls ===== */
+.controls {
+  background: rgba(14, 20, 30, 0.6);
+  border: 1px solid rgba(105, 200, 240, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.control-group label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  background: rgba(23, 29, 39, 0.8);
+  border: 1px solid rgba(105, 200, 240, 0.2);
+  color: #bbbbbb;
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  outline: 2px solid transparent;
+  transition: outline-color 160ms ease;
+}
+
+.control-group input:focus,
+.control-group select:focus {
+  outline-color: rgba(105, 200, 240, 0.3);
+  border-color: var(--accent);
+}
+
+/* ===== DAG 4: Enhanced Cards & Badges ===== */
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.year-badge {
+  border-radius: 999px;
+  background: rgba(105, 200, 240, 0.2);
+  color: #92dafd;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.35rem 0.42rem;
+  white-space: nowrap;
+}
+
+.movie-rating {
+  margin-top: 0.45rem;
+  color: #ffcf4d;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.director-line {
+  font-size: 0.75rem;
+  color: #d1e1ed;
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
+
+/* ===== DAG 4: Dialog ===== */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+dialog#movie-dialog {
+  width: min(94vw, 980px);
+  max-height: 90vh;
+  padding: 0;
+  border: 1px solid rgba(105, 200, 240, 0.24);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(26, 31, 46, 0.98) 0%, rgba(12, 17, 26, 0.98) 100%);
+  color: #bbbbbb;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  animation: dialog-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+dialog#movie-dialog::backdrop {
+  background: rgba(2, 5, 10, 0.72);
+  backdrop-filter: blur(6px);
+  animation: backdrop-in 260ms ease both;
+}
+
+dialog#movie-dialog form {
+  margin: 0;
+  padding: 0;
+}
+
+#close-dialog {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(105, 200, 240, 0.35);
+  background: rgba(12, 17, 26, 0.75);
+  color: #bbbbbb;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+  z-index: 10;
+}
+
+#close-dialog:hover,
+#close-dialog:focus-visible {
+  background: var(--accent);
+  color: var(--bg-dark);
+  transform: scale(1.06);
+}
+
+#dialog-content {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) 1.4fr;
+  gap: 1.6rem;
+  align-items: start;
+  padding: 1.4rem;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+#dialog-content img.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(105, 200, 240, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.dialog-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-right: 0.6rem;
+}
+
+#dialog-content h2 {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.2vw, 2rem);
+  line-height: 1.2;
+  color: #bbbbbb;
+}
+
+#dialog-content .movie-year {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(105, 200, 240, 0.18);
+  color: #9adffc;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+#dialog-content p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+#dialog-content p strong {
+  color: #bbbbbb;
+}
+
+#dialog-content .movie-genre {
+  color: #cfe9f7;
+  font-size: 0.95rem;
+}
+
+.movie-description {
+  margin-top: 0.45rem !important;
+  padding: 0.9rem;
+  background: rgba(105, 200, 240, 0.08);
+  border: 1px solid rgba(105, 200, 240, 0.2);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  color: var(--text-light) !important;
+}
+
+@media (max-width: 768px) {
+  #dialog-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #dialog-content img.movie-poster {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .dialog-details {
+    text-align: center;
+    padding-right: 0;
+  }
+}
+
+/* ===== Status & Empty States ===== */
+.status-bar {
+  margin: 0.8rem 0;
+}
+
+#movie-count {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.empty,
+.loading {
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px solid rgba(105, 200, 240, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
+  background: rgba(20, 28, 39, 0.4);
+  grid-column: 1 / -1;
+}
+
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 1rem 0 1.5rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 1rem 0.8rem;
+  }
+
+  .controls {
+    padding: 0.8rem;
+  }
+
+  #dialog-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .movie-card .movie-poster {
+    height: 300px;
+  }
+}
+
+header {
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 120px;   /* justér størrelsen */
+  height: auto;
+}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App</title>
+    <link rel="stylesheet" href="app.css" />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Spilcaféen</h1>
+      <p class="subtitle"></p>
+      <img src="/img/spilcaféen logo.webp" alt="logo" class="logo" />
+    </header>
+
+    <main>
+      <section class="controls">
+        <div class="control-group">
+          <label for="search-input">Søg på titel</label>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Fx Monopoly, Kaste gris eller Hvem er Hvem?"
+          />
+        </div>
+
+        <div class="control-group">
+          <label for="genre-select">Genre</label>
+          <select id="genre-select">
+            <option value="all">Alle genrer</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sort-select">Sortering</label>
+          <select id="sort-select">
+            <option value="none">Ingen sortering</option>
+            <option value="title">Titel (A-Å)</option>
+            <option value="year">Årstal (nyeste først)</option>
+            <option value="rating">Rating (højeste først)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="status-bar">
+        <p id="movie-count">Viser 0 spil</p>
+      </section>
+
+      <section id="movie-list" class="movie-grid">
+        <p class="loading">Loader spil...</p>
+      </section>
+    </main>
+
+    <!-- Movie Detail Dialog -->
+    <dialog id="movie-dialog">
+      <form method="dialog">
+        <button id="close-dialog" aria-label="Luk">✕</button>
+        <div id="dialog-content">
+          <!-- Filmdetaljer indsættes her via JavaScript -->
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
