@@ -100,11 +100,11 @@ function showMovies(movies) {
   const movieCount = document.querySelector("#movie-count");
 
   movieList.innerHTML = "";
-  movieCount.textContent = `Viser ${movies.length} ud af ${allMovies.length} film`;
+  movieCount.textContent = `Viser ${movies.length} ud af ${allMovies.length} spil`;
 
   if (movies.length === 0) {
     movieList.innerHTML =
-      '<p class="empty">Ingen film matcher din søgning eller genre.</p>';
+      '<p class="empty">Ingen spil matcher din søgning eller genre.</p>';
     return;
   }
 
@@ -126,7 +126,6 @@ function showMovie(movie) {
           <h2>${movie.title}</h2>
         </div>
         <p class="genre">${genres}</p>
-        <p class="movie-rating">⭐ ${movie.rating}</p>
         <p class="director-line"><strong> 2-4 personer </strong> ${movie.players}</p>
         <p class="director-line"><strong>Spilletid:</strong> ${movie.playtime} min</p>
         <p class="movie-location"><strong>Placering:</strong> ${movie.shelf}</p>
